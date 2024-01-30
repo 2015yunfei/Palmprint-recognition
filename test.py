@@ -56,6 +56,7 @@ class gabor():
                 gw = gabor_wavelet(self.R, self.C, u, v, self.n_orientarion)
                 fig.add_subplot(n_scale, self.n_orientarion, self.n_orientarion * (v - 1) + u)
                 plt.imshow(np.real(gw), cmap='gray')
+        plt.savefig('texture/saved_image1.png', bbox_inches='tight', pad_inches=0)
         plt.show()
 
 
@@ -124,6 +125,8 @@ def process(img):
 
 train_data_path = './Palmprint/training'
 test_data_path = './Palmprint/testing'
+if not os.path.exists('texture'):
+    os.makedirs('texture')
 n_orientation = 6
 scale = 2
 GA = gabor(10, 10, n_orientation, scale)  # 10*10的filter,取6个不同角度,尺度为2
@@ -139,14 +142,17 @@ test2 = palm2.test[0]
 
 plt.imshow(train2, cmap='gray')
 plt.axis('off')
+plt.savefig('texture/saved_image2.png', bbox_inches='tight', pad_inches=0)
 plt.show()
 
 plt.imshow(LOG_preprocess(train2), cmap='gray')
 plt.axis('off')
+plt.savefig('texture/saved_image3.png', bbox_inches='tight', pad_inches=0)
 plt.show()
 
 res1 = process(train2)
 fig = plt.figure(dpi=70)
 plt.imshow(res1, cmap='gray')
 plt.axis('off')
+plt.savefig('texture/saved_image4.png', bbox_inches='tight', pad_inches=0)
 plt.show()
