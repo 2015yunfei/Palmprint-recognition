@@ -20,6 +20,6 @@ This project is mainly to complete the palmprint feature extraction and classifi
 
 
 
-## 项目源地址
+## 原项目地址
 
 https://github.com/ruofei7/Palmprint_Recognition

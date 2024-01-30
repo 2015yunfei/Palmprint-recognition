@@ -1,2 +1,5 @@
 # Ignore IntelliJ IDEA files
 .idea/
+
+# 忽略掉某个文件夹及其所有嵌套的子文件夹
+Palmprint/**
