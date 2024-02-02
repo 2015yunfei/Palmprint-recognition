@@ -168,7 +168,7 @@ def delete_directory(directory_path):
 
 # 定义超参
 batch_size = 64
-num_epochs = 10  # 因为要让他过拟合，epoch数要多一些
+num_epochs = 300  # 因为要让他过拟合，epoch数要多一些
 
 image_transforms = {
     'train': transforms.Compose([
@@ -224,29 +224,26 @@ valid_data = DataLoader(data['valid'], batch_size=batch_size, shuffle=True)
 
 print(train_data_size, valid_data_size)
 
-trained_model, history, best_acc, best_epoch = train_and_valid(resnet18, loss_func, optimizer, num_epochs)
+main_folder = "./Palmprint/trainold"
+output_folder = "./Palmprint/train"
+trained_folder = "./models_resnet18_ep300"
+
+delete_directory(output_folder)
+delete_directory(trained_folder)
+
+trained_model, history, best_acc_old, best_epoch = train_and_valid(resnet18, loss_func, optimizer, num_epochs)
 
 # model_path = 'models_resnet18_ep' + str(num_epochs)
 # torch.save(history, model_path + '/' + dataset + '_history.pt')
 
 history = np.array(history)
-plt.plot(history[:, 2:4])
-plt.legend(['Tr Accuracy', 'Val Accuracy'])
-plt.xlabel('Epoch Number')
-plt.ylabel('Accuracy')
-plt.ylim(0, 1)
-plt.title('best_acc:' + str(best_acc)[0:6] + ' best_epoch' + str(best_epoch))
-# plt.savefig(dataset + model_path + '_accuracy_curve.png')
-# plt.close()
-
+# 绘制第一组数据
+plt.plot(history[:, 2], label='Tr Accuracy(old)')
+plt.plot(history[:, 3], label='Val Accuracy(old)')
 
 my_noise_factor = 0.03
 my_size = (100, 100)
 total_augmented_images = 6
-
-main_folder = "./Palmprint/trainold"
-output_folder = "./Palmprint/train"
-trained_folder = "./models_resnet18_ep300"
 
 delete_directory(output_folder)
 delete_directory(trained_folder)
@@ -272,10 +269,15 @@ print(train_data_size, valid_data_size)
 trained_model, history, best_acc, best_epoch = train_and_valid(resnet18, loss_func, optimizer, num_epochs)
 
 model_path = 'models_resnet18_ep' + str(num_epochs)
-# torch.save(history, model_path + '/' + dataset + '_history.pt')
 
 history = np.array(history)
-plt.plot(history[:, 2:4])
+plt.plot(history[:, 2], label='Tr Accuracy(best)')
+plt.plot(history[:, 3], label='Val Accuracy(best)')
+plt.legend()
+plt.xlabel('Epoch Number')
+plt.ylabel('Accuracy')
+plt.ylim(0, 1)
+plt.title('best_acc_old:' + str(best_acc_old)[0:6] + '\nbest_acc_new:' + str(best_acc)[0:6])
 plt.savefig(dataset + model_path + '_accuracy_curve.png')
 plt.close()
 delete_directory(trained_folder)
