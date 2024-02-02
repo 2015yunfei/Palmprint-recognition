@@ -25,12 +25,12 @@ def merge_images_from_folder(folder_path, output_path):
         merged_image.paste(image, (i * max_width + offset[0], offset[1]))
 
     # 保存合并后的图片
-    merged_image.save(output_path)
+    merged_image.save(output_path, format="BMP")
 
 
 if __name__ == "__main__":
     # 请替换为您的文件夹路径
-    folder_path = "./merge"
+    folder_path = "./merge_texture.py"
 
     # 请替换为您希望保存合并后图片的路径
     output_path = "merged_image.jpg"
