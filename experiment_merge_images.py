@@ -228,23 +228,21 @@ main_folder = "./Palmprint/trainold"
 output_folder = "./Palmprint/train"
 trained_folder = "./models_resnet18_ep300"
 
+# 先删除可能存在之前的训练数据
 delete_directory(output_folder)
 delete_directory(trained_folder)
 
 trained_model, history, best_acc_old, best_epoch = train_and_valid(resnet18, loss_func, optimizer, num_epochs)
 
-# model_path = 'models_resnet18_ep' + str(num_epochs)
-# torch.save(history, model_path + '/' + dataset + '_history.pt')
-
 history = np.array(history)
 # 绘制第一组数据
-plt.plot(history[:, 2], label='Tr Accuracy(old)')
-plt.plot(history[:, 3], label='Val Accuracy(old)')
+plt.plot(history[:, 3], label='Original Accuracy')
 
 my_noise_factor = 0.03
 my_size = (100, 100)
 total_augmented_images = 6
 
+# 删除第一次训练的数据
 delete_directory(output_folder)
 delete_directory(trained_folder)
 
@@ -271,13 +269,15 @@ trained_model, history, best_acc, best_epoch = train_and_valid(resnet18, loss_fu
 model_path = 'models_resnet18_ep' + str(num_epochs)
 
 history = np.array(history)
-plt.plot(history[:, 2], label='Tr Accuracy(best)')
-plt.plot(history[:, 3], label='Val Accuracy(best)')
+plt.plot(history[:, 3], label='Enhanced Accuracy')
 plt.legend()
 plt.xlabel('Epoch Number')
 plt.ylabel('Accuracy')
 plt.ylim(0, 1)
-plt.title('best_acc_old:' + str(best_acc_old)[0:6] + '\nbest_acc_new:' + str(best_acc)[0:6])
+plt.title('Best original accuracy:' + str(best_acc_old)[0:6] + '\nBest enhanced accuracy:' + str(best_acc)[0:6])
 plt.savefig(dataset + model_path + '_accuracy_curve.png')
 plt.close()
+
+# 删除第二次训练的数据
+delete_directory(output_folder)
 delete_directory(trained_folder)
