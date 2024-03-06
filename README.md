@@ -15,3 +15,21 @@ Email：**2015yunfei@gmail.com**
 # 原项目地址
 
 https://github.com/ruofei7/Palmprint_Recognition
+
+
+
+
+
+# 我的工作
+
+
+
+My improvement on the original project：
+
+
+
+In this experiment, various image augmentation techniques were employed to augment the limited training set, thereby increasing the training samples and enhancing the generalization ability of the ResNet model. Ultimately, the recognition accuracy of the ResNet model was increased from 80% to 86%.
+
+ 
+
+I combined common data augmentation techniques, including brightness adjustment, contrast adjustment, random noise addition, random cropping, image rotation, and image flipping, into ten groups for experimentation. Through these ten sets of trials, I aimed to identify the optimal data augmentation approach.
